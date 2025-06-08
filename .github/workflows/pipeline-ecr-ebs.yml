@@ -27,6 +27,13 @@ jobs:
           name: ebconfig
           path: .
 
+      - name: Configura credenciais AWS
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          region: us-east-1
+
       - run: sed -i "s|<AWS_ACCOUNT_ID>|${{ secrets.AWS_ACCOUNT_ID }}|" Dockerrun.aws.json
       - run: sed -i "s|<PROJECT_NAME>|conchayoro|" Dockerrun.aws.json
       - run: sed -i "s|<MODULE_NAME>|frontend|" Dockerrun.aws.json
