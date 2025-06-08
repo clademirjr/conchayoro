@@ -1,3 +1,10 @@
+name: pipeline-ecr-ebs
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
