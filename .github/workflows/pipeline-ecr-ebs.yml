@@ -1,8 +1,15 @@
+name: deploy-to-eb
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # Outras etapas do build aqui
+      # Etapas do build
       - uses: actions/upload-artifact@v4
         with:
           name: ebconfig
@@ -20,10 +27,10 @@ jobs:
           path: .
 
       - run: |
-          sed -i='' "s/<AWS_ACCOUNT_ID>/$AWS_ACCOUNT_ID/" Dockerrun.aws.json
-          sed -i='' "s/<PROJECT_NAME>/$PROJECT_NAME/" Dockerrun.aws.json
-          sed -i='' "s/<MODULE_NAME>/$MODULE_NAME/" Dockerrun.aws.json
-          sed -i='' "s/<TAG>/$TAG/" Dockerrun.aws.json
+          sed -i='' "s/<AWS_ACCOUNT_ID>/${{ secrets.AWS_ACCOUNT_ID }}/" Dockerrun.aws.json
+          sed -i='' "s/<PROJECT_NAME>/conchayoro/" Dockerrun.aws.json
+          sed -i='' "s/<MODULE_NAME>/frontend/" Dockerrun.aws.json
+          sed -i='' "s/<TAG>/latest/" Dockerrun.aws.json
 
       - uses: actions/setup-python@v3
         with:
