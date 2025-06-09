@@ -36,13 +36,10 @@ jobs:
           sed -i='' "s/<MODULE_NAME>/$MODULE_NAME/" frontend/Dockerrun.aws.json
           sed -i='' "s/<TAG>/$TAG/" frontend/Dockerrun.aws.json
 
-      - name: Copia arquivos necessários
-        run: |
-          mkdir -p deploy
-          cp frontend/.elasticbeanstalk/config.yml deploy/
-          cp frontend/Dockerrun.aws.json deploy/
+      - name: Copia Dockerrun para pasta do EB
+        run: cp frontend/Dockerrun.aws.json frontend/.elasticbeanstalk/Dockerrun.aws.json
 
-      - name: Instala a EB CLI
+      - name: Instala EB CLI
         uses: actions/setup-python@v3
         with:
           python-version: '3.10'
@@ -53,5 +50,5 @@ jobs:
 
       - name: Realiza o deploy no Elastic Beanstalk
         run: |
-          cd deploy
+          cd frontend
           eb deploy --verbose
