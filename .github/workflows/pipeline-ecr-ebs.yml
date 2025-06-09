@@ -22,21 +22,27 @@ jobs:
       MODULE_FULLNAME: ${{ vars.PROJECT_NAME }}/${{ vars.MODULE_NAME }}
       REGISTRY_URL: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout do código
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Configura Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
 
-      - run: docker build -t $MODULE_FULLNAME $MODULE_NAME
+      - name: Build da imagem Docker
+        run: docker build -t $MODULE_FULLNAME $MODULE_NAME
 
-      - run: |
+      - name: Tag da imagem
+        run: |
           docker tag $MODULE_FULLNAME:$TAG \
           $REGISTRY_URL/$MODULE_FULLNAME:$TAG
 
-      - run: |
+      - name: Login no ECR
+        run: |
           aws ecr get-login-password --region $AWS_REGION | \
           docker login --username AWS --password-stdin $REGISTRY_URL
 
-      - run: docker push $REGISTRY_URL/$MODULE_FULLNAME:$TAG
+      - name: Push da imagem para o ECR
+        run: docker push $REGISTRY_URL/$MODULE_FULLNAME:$TAG
