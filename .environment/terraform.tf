@@ -7,13 +7,13 @@ terraform {
   }
 
   backend "s3" {
-    bucket  = var.BUCKET_S3
-    key     = "state/terraform.tfstate"
-    region  = "us-east-1"
+    bucket  = ""
+    key     = ""
+    region  = ""
     encrypt = true
   }
 
-  required_version = ">= 1.4.0"
+  required_version = ">= 1.12.1"
 }
 
 provider "aws" {
