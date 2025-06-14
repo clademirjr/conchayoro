@@ -15,4 +15,4 @@ jobs:
         with:
           node-version: 18
       - run: npm --prefix backend install
-      - run: npm --prefix backend test -- --testPathIgnorePatterns=backend/src/products/products.service.spec.ts backend/src/products/products.controller.spec.ts
+      - run: npm --prefix backend test
