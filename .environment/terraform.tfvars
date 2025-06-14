@@ -1,7 +1,7 @@
 AWS_REGION           = "us-east-2"
 PROJECT_NAME         = "conchayoro"
 MODULE_NAME          = "frontend"
-SOLUTION_STACK_NAME  = "64bit Amazon Linux 2 v3.5.7 running Docker"
+SOLUTION_STACK_NAME  = "64bit Amazon Linux 2023 v4.5.2 running Docker"
 EnvironmentType      = "LoadBalanced"
 LoadBalancerType     = "application"
 MinSize              = 1
@@ -11,3 +11,4 @@ BatchSizeType        = "Percentage"
 BatchSize            = 10
 Timeout              = 3600
 S3_BUCKET            = "conchayoro-clad"
+AWS_ACCOUNT_ID      = "784486495381"
