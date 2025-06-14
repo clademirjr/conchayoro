@@ -1,0 +1,15 @@
+name: Destroy ECR & EB
+on:
+  workflow_dispatch:
+
+jobs:
+  destroy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - run: |
+          terraform -chdir=.environment init \
+            -backend-config="bucket=${{ vars.S3_BUCKET }}" \
+            -backend-config="key=state/terraform.tfstate"
+      - run: terraform -chdir=.environment destroy -var-file=terraform.tfvars -auto-approve

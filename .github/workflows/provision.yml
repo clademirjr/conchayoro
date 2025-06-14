@@ -1,0 +1,21 @@
+name: Provision ECR & EB
+on:
+  workflow_dispatch:
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION:      ${{ vars.AWS_REGION }}
+      AWS_ACCOUNT_ID:  ${{ secrets.AWS_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: latest
+      - run: |
+          terraform -chdir=.environment init \
+            -backend-config="bucket=${{ vars.S3_BUCKET }}" \
+            -backend-config="key=state/terraform.tfstate"
+      - run: terraform -chdir=.environment plan -var-file=terraform.tfvars
+      - run: terraform -chdir=.environment apply -var-file=terraform.tfvars -auto-approve

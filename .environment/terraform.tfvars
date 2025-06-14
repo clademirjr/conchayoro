@@ -1,0 +1,13 @@
+AWS_REGION           = "us-east-1"
+PROJECT_NAME         = "conchayoro"
+MODULE_NAME          = "frontend"
+SOLUTION_STACK_NAME  = "64bit Amazon Linux 2 v3.5.7 running Docker"
+EnvironmentType      = "LoadBalanced"
+LoadBalancerType     = "application"
+MinSize              = 1
+MaxSize              = 2
+DeploymentPolicy     = "RollingWithAdditionalBatch"
+BatchSizeType        = "Percentage"
+BatchSize            = 10
+Timeout              = 3600
+S3_BUCKET            = "conchayoro-ABC"
