@@ -13,7 +13,7 @@ terraform {
     encrypt = true
   }
 
-  required_version = ">= 1.12.1"
+  required_version = ">= 1.4.0"
 }
 
 provider "aws" {
