@@ -6,17 +6,25 @@ jobs:
   provision:
     runs-on: ubuntu-latest
     env:
-      AWS_REGION:   ${{ vars.AWS_REGION }}
-      AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
-      BUCKET_S3:    ${{ vars.BUCKET_S3 }}
+      AWS_REGION:            ${{ vars.AWS_REGION }}
+      AWS_ACCOUNT_ID:        ${{ secrets.AWS_ACCOUNT_ID }}
+      AWS_ACCESS_KEY_ID:     ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_SESSION_TOKEN:     ${{ secrets.AWS_SESSION_TOKEN }}
+      BUCKET_S3:             ${{ vars.BUCKET_S3 }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: hashicorp/setup-terraform@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: "1.4.0"
-      - run: |
+      - name: Initialize Terraform
+        run: |
           terraform -chdir=.environment init \
             -backend-config="bucket=${{ env.BUCKET_S3 }}" \
             -backend-config="key=state/terraform.tfstate"
-      - run: terraform -chdir=.environment plan -var-file=terraform.tfvars
-      - run: terraform -chdir=.environment apply -var-file=terraform.tfvars -auto-approve
+      - name: Terraform Plan
+        run: terraform -chdir=.environment plan -var-file=terraform.tfvars
+      - name: Terraform Apply
+        run: terraform -chdir=.environment apply -var-file=terraform.tfvars -auto-approve
