@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name: pipeline-ecr-ebs
 
 on:
@@ -28,10 +29,38 @@ jobs:
           path: .
 
       - uses: aws-actions/configure-aws-credentials@v2
+=======
+name: pipeline-ebs
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+  AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+  AWS_REGION: ${{ vars.AWS_REGION }}
+  PROJECT_NAME: ${{ vars.PROJECT_NAME }}
+  MODULE_NAME: ${{ vars.MODULE_NAME }}
+  TAG: latest
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configura credenciais AWS
+        uses: aws-actions/configure-aws-credentials@v2
+>>>>>>> b7c1319758c46e622e90bbf17836218b55232a92
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+<<<<<<< HEAD
           aws-region: us-east-1
 
       - run: sed -i='' "s/<AWS_ACCOUNT_ID>/$AWS_ACCOUNT_ID/" Dockerrun.aws.json
@@ -40,6 +69,22 @@ jobs:
       - run: sed -i='' "s/<TAG>/latest/" Dockerrun.aws.json
 
       - uses: actions/setup-python@v3
+=======
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Substitui variáveis no Dockerrun.aws.json
+        run: |
+          sed -i='' "s/<AWS_ACCOUNT_ID>/$AWS_ACCOUNT_ID/" frontend/Dockerrun.aws.json
+          sed -i='' "s/<PROJECT_NAME>/$PROJECT_NAME/" frontend/Dockerrun.aws.json
+          sed -i='' "s/<MODULE_NAME>/$MODULE_NAME/" frontend/Dockerrun.aws.json
+          sed -i='' "s/<TAG>/$TAG/" frontend/Dockerrun.aws.json
+
+      - name: Copia Dockerrun para pasta do EB
+        run: cp frontend/Dockerrun.aws.json frontend/.elasticbeanstalk/Dockerrun.aws.json
+
+      - name: Instala EB CLI
+        uses: actions/setup-python@v3
+>>>>>>> b7c1319758c46e622e90bbf17836218b55232a92
         with:
           python-version: '3.10'
 
@@ -47,4 +92,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install awsebcli
 
+<<<<<<< HEAD
       - run: eb deploy --verbose
+=======
+      - name: Realiza o deploy no Elastic Beanstalk
+        run: |
+          cd frontend
+          eb deploy --verbose
+>>>>>>> b7c1319758c46e622e90bbf17836218b55232a92
