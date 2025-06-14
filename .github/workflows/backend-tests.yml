@@ -10,16 +10,9 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout do repositório
-        uses: actions/checkout@v4
-
-      - name: Setup do Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
-
-      - name: Instala dependências do backend
-        run: npm --prefix backend install
-
-      - name: Executa os testes
-        run: npm --prefix backend test -- --testPathIgnorePatterns=backend/src/products/products.service.spec.ts
+      - run: npm --prefix backend install
+      - run: npm --prefix backend test -- --testPathIgnorePatterns=backend/src/products/products.service.spec.ts backend/src/products/products.controller.spec.ts
