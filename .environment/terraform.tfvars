@@ -10,4 +10,4 @@ DeploymentPolicy     = "RollingWithAdditionalBatch"
 BatchSizeType        = "Percentage"
 BatchSize            = 10
 Timeout              = 3600
-S3_BUCKET            = "conchayoro-ABC"
+S3_BUCKET            = "conchayoro-cla"
