@@ -1,0 +1,18 @@
+# Ignora pasta de cache do Terraform
+.terraform/
+
+# Ignora arquivos de lock locais
+.terraform.lock.hcl
+
+# Ignora arquivos temporários do sistema
+*.log
+*.tfstate
+*.tfstate.backup
+*.zip
+
+# Ignora arquivos do Windows
+Thumbs.db
+Desktop.ini
+
+# Ignora o backend state salvo localmente
+crash.log
