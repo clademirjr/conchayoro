@@ -10,4 +10,4 @@ variable "DeploymentPolicy"   { type = string }
 variable "BatchSizeType"      { type = string }
 variable "BatchSize"          { type = number }
 variable "Timeout"            { type = number }
-variable "S3_BUCKET"          { type = string }
+variable "BUCKET_S3"          { type = string }

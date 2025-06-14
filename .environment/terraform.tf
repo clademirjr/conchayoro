@@ -3,7 +3,7 @@ terraform {
     aws = { source = "hashicorp/aws", version = "~> 5.98" }
   }
   backend "s3" {
-    bucket  = var.S3_BUCKET
+    bucket  = var.BUCKET_S3
     key     = "state/terraform.tfstate"
     region  = "us-east-1"  # region must be static or provided via -backend-config
     encrypt = true

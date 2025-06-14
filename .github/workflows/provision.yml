@@ -3,17 +3,17 @@ on:
   workflow_dispatch:
 
 jobs:
-  terraform:
+  provision:
     runs-on: ubuntu-latest
     env:
-      AWS_REGION:      ${{ vars.AWS_REGION }}
-      AWS_ACCOUNT_ID:  ${{ secrets.AWS_ACCOUNT_ID }}
-      BUCKET_S3:       ${{ vars.BUCKET_S3 }}  # Ajustado para usar BUCKET_S3  # Adicionado para backend-config
+      AWS_REGION:   ${{ vars.AWS_REGION }}
+      AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+      BUCKET_S3:    ${{ vars.BUCKET_S3 }}
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: latest
+          terraform_version: "1.4.0"
       - run: |
           terraform -chdir=.environment init \
             -backend-config="bucket=${{ env.BUCKET_S3 }}" \
