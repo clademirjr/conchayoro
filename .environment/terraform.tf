@@ -10,7 +10,7 @@ terraform {
   #  bucket  = var.BUCKET_S3
    # key     = "state/terraform.tfstate"
     #region  = "us-east-2"
-    $encrypt = true
+   # $encrypt = true
   #}
 
   required_version = ">= 1.4.0"
