@@ -1,4 +1,4 @@
-AWS_REGION           = "us-east-1"
+AWS_REGION           = "us-east-2"
 PROJECT_NAME         = "conchayoro"
 MODULE_NAME          = "frontend"
 SOLUTION_STACK_NAME  = "64bit Amazon Linux 2 v3.5.7 running Docker"
@@ -10,4 +10,4 @@ DeploymentPolicy     = "RollingWithAdditionalBatch"
 BatchSizeType        = "Percentage"
 BatchSize            = 10
 Timeout              = 3600
-S3_BUCKET            = "conchayoro-cla"
+S3_BUCKET            = "conchayoro-clad"
